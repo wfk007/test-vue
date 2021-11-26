@@ -1,5 +1,5 @@
 <template>
-  <div>{{ childProps.a }}</div>
+  <div>{{ childProps.join("-") }}</div>
 </template>
 
 <script>
@@ -7,13 +7,13 @@ export default {
   name: "child",
   props: {
     childProps: {
-      type: Object,
-      default: () => ({}),
+      type: Array,
+      default: () => [],
     },
   },
   watch: {
     childProps: {
-      handler(val, oldVal) {
+      handler() {
         console.log("child props childProps update");
       },
       deep: true,

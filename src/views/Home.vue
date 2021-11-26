@@ -1,7 +1,6 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <child :child-props="infos.childProps || {}" />
+  <div>
+    <child :child-props="childProps" />
     <button @click="btnClick">add a field in item</button>
   </div>
 </template>
@@ -10,7 +9,7 @@
 import Child from "@/components/Child.vue"; // @ is an alias to /src
 
 export default {
-  name: "parent",
+  name: "home",
   components: {
     Child,
   },
@@ -22,11 +21,7 @@ export default {
           a: 111,
           b: 222,
           c: 333,
-          childProps: {
-            a: 1,
-            b: 2,
-            c: 3,
-          },
+          childProps: [1, 2, 3],
         },
       },
     };
@@ -40,13 +35,16 @@ export default {
     infos: function () {
       return this.item.infos || {};
     },
+    childProps: function () {
+      return [0, ...this.infos.childProps];
+    },
   },
   watch: {
-    infos: function (newQuestion, oldQuestion) {
+    infos: function () {
       console.log("parent infos update");
     },
-    "infos.childProps": function (newQuestion, oldQuestion) {
-      console.log("parent infos.childProps update");
+    childProps: function () {
+      console.log("parent childProps update");
     },
   },
 };
